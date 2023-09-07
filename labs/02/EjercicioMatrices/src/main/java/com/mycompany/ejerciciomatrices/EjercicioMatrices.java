@@ -38,8 +38,8 @@ public class EjercicioMatrices {
                             opcion2=Menus.menu2();
                             switch(opcion2){
                                 case 1: if(matriz1.length==matriz2.length & matriz1[0].length==matriz2[0].length){
-                                            matrizR=OperacionesMatriz.sumamatrices(matriz1, matriz2);
-                                            InterMatriz.mostrarmatriz(matrizR);
+                                            //matrizR=OperacionesMatriz.sumamatrices(matriz1, matriz2);
+                                            InterMatriz.mostrarmatriz(OperacionesMatriz.sumamatrices(matriz1, matriz2));
                                 }
                                         else
                                             System.out.println("No se pueden sumar matrices de distintas dimensiones.");
