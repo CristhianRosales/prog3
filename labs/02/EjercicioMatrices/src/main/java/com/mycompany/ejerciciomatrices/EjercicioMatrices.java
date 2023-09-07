@@ -1,33 +1,30 @@
 package com.mycompany.ejerciciomatrices;
-import java.util.Scanner;
 
 public class EjercicioMatrices {
-
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int i, j, opcion, opcion1, opcion2, opcionm;
-        double[][] matriz1 = null, matriz2 = null, matrizR;
-        double escalar;
+        int i, j, opcion, opcion1, opcion2, opcionm, opcione, opciont;
+        double[][] matriz1 = null, matriz2 = null;
+        double escalar = 0;
         do{
-            opcion=Menus.menu();
+            opcion=Mostrar.menu();
             switch(opcion){
                 case 1: do{
-                            opcion1=Menus.menu1();
+                            opcion1=Mostrar.menu1();
                             switch(opcion1){
                                 case 1: System.out.print("\nIngrese la cantidad de filas: ");
-                                        i=in.nextInt();
+                                        i=Lectura.entradaint();
                                         System.out.print("\nIngrese la cantidad de columnas: ");
-                                        j=in.nextInt();
-                                        matriz1=InterMatriz.matriz(i, j);
+                                        j=Lectura.entradaint();
+                                        matriz1=Lectura.matriz(i, j);
                                         break;
                                 case 2: System.out.print("\nIngrese la cantidad de filas: ");
-                                        i=in.nextInt();
+                                        i=Lectura.entradaint();
                                         System.out.print("\nIngrese la cantidad de columnas: ");
-                                        j=in.nextInt();
-                                        matriz2=InterMatriz.matriz(i, j);
+                                        j=Lectura.entradaint();
+                                        matriz2=Lectura.matriz(i, j);
                                         break;
                                 case 3: System.out.print("\nIngrese el escalar: ");
-                                        escalar=in.nextDouble();
+                                        escalar=Lectura.entradadouble();
                                         break;
                                 default:System.out.println("Opcion Invalida.");
                                         break;
@@ -35,37 +32,56 @@ public class EjercicioMatrices {
                         }while(opcion1!=4);
                         break;
                 case 2: do{
-                            opcion2=Menus.menu2();
+                            opcion2=Mostrar.menu2();
                             switch(opcion2){
                                 case 1: if(matriz1.length==matriz2.length & matriz1[0].length==matriz2[0].length){
-                                            //matrizR=OperacionesMatriz.sumamatrices(matriz1, matriz2);
-                                            InterMatriz.mostrarmatriz(OperacionesMatriz.sumamatrices(matriz1, matriz2));
+                                            Mostrar.mostrarmatriz(OperacionesMatriz.sumamatrices(matriz1, matriz2));
                                 }
                                         else
                                             System.out.println("No se pueden sumar matrices de distintas dimensiones.");
                                         break;
                                 case 2: System.out.print("\n\t¿Que desea realizar?\n1.MatrizA*MatrizB\n2.MatrizB*MatrizA\n3.MatrizA*MatrizA\n4.MatrizB*MatrizB\n: ");
-                                        opcionm=in.nextInt();
+                                        opcionm=Lectura.entradaint();
                                         switch(opcionm){
                                             case 1: if(matriz1[0].length==matriz2.length)
-                                                        InterMatriz.mostrarmatriz(OperacionesMatriz.multiplicarmatrices(matriz1, matriz2));
+                                                        Mostrar.mostrarmatriz(OperacionesMatriz.multiplicarmatrices(matriz1, matriz2));
                                                     else
                                                         System.out.println("No se pueden multiplicar estas matrices en el orden indicado.");
                                                     break;
                                             case 2: if(matriz2[0].length==matriz1.length)
-                                                        InterMatriz.mostrarmatriz(OperacionesMatriz.multiplicarmatrices(matriz2, matriz1));
+                                                        Mostrar.mostrarmatriz(OperacionesMatriz.multiplicarmatrices(matriz2, matriz1));
                                                     else
                                                         System.out.println("No se pueden multiplicar estas matrices en el orden indicado.");
                                                     break;
-                                            case 3: InterMatriz.mostrarmatriz(OperacionesMatriz.multiplicarmatrices(matriz1, matriz1));
+                                            case 3: if(matriz1[0].length==matriz1.length)
+                                                        Mostrar.mostrarmatriz(OperacionesMatriz.multiplicarmatrices(matriz1, matriz1));
+                                                    else
+                                                        System.out.println("No se pueden multiplicar estas matrices en el orden indicado.");
                                                     break;
-                                            case 4: InterMatriz.mostrarmatriz(OperacionesMatriz.multiplicarmatrices(matriz2, matriz2));
+                                            case 4: if(matriz2[0].length==matriz2.length)
+                                                        Mostrar.mostrarmatriz(OperacionesMatriz.multiplicarmatrices(matriz2, matriz2));
+                                                    else
+                                                        System.out.println("No se pueden multiplicar estas matrices en el orden indicado.");
                                                     break;
                                         }
                                         break;
-                                case 3: 
+                                case 3: System.out.print("\n\t¿Que desea realizar?\n1.MatrizA*Escalar\n2.MatrizB*Escalar\n: ");
+                                        opcione=Lectura.entradaint();
+                                        switch(opcione){
+                                            case 1: Mostrar.mostrarmatriz(OperacionesMatriz.matrizporescalar(matriz1, escalar));
+                                                    break;
+                                            case 2: Mostrar.mostrarmatriz(OperacionesMatriz.matrizporescalar(matriz2, escalar));
+                                                    break;
+                                        }
                                         break;
-                                case 4: 
+                                case 4: System.out.print("\n\t¿Que desea realizar?\n1.MatrizA Transpuesta\n2.MatrizB Transpuesta\n: ");
+                                        opciont=Lectura.entradaint();
+                                        switch(opciont){
+                                            case 1: Mostrar.mostrarmatriz(OperacionesMatriz.matriztranspuesta(matriz1));
+                                                    break;
+                                            case 2: Mostrar.mostrarmatriz(OperacionesMatriz.matriztranspuesta(matriz2));
+                                                    break;
+                                        }
                                         break;
                                 default:System.out.println("Opcion Invalida.");
                                         break;
