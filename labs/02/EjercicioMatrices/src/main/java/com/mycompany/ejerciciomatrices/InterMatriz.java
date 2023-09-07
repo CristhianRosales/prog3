@@ -3,7 +3,6 @@ package com.mycompany.ejerciciomatrices;
 import java.util.Scanner;
 
 public class InterMatriz {
-    
     public static double[][] matriz(int i, int j){
         Scanner in = new Scanner(System.in);
         double[][] matriz = new double[i][j];

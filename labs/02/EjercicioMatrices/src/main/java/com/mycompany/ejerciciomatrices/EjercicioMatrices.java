@@ -2,7 +2,7 @@ package com.mycompany.ejerciciomatrices;
 import java.util.Scanner;
 
 public class EjercicioMatrices {
-    
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int i, j, opcion, opcion1, opcion2, opcionm;
