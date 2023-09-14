@@ -1,0 +1,3 @@
+Para ejecutar el programa abrir la consola de comandos y poner la siguiente linea:
+java -cp .;"Ruta de la carpeta"\AbsoluteLayout-RELEASE190.jar "Ruta de la carpeta"\EmpresaCarros.java
+Reemplazar "Ruta de la carpetta" por la ruta de la carpeta que contenga los archivos.
