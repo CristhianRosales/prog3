@@ -1,15 +1,22 @@
-
 public class Estudiante {
+    private String codigo;
     private String nombre;
-    private int codigo;
     private String correo;
     private int semestre;
 
-    public Estudiante(String nombre, int codigo, String correo, int semestre) {
-        this.nombre = nombre;
+    public Estudiante(String codigo, String nombre, String correo, int semestre) {
         this.codigo = codigo;
+        this.nombre = nombre;
         this.correo = correo;
         this.semestre = semestre;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public String getNombre() {
@@ -18,14 +25,6 @@ public class Estudiante {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
     }
 
     public String getCorreo() {
@@ -43,8 +42,4 @@ public class Estudiante {
     public void setSemestre(int semestre) {
         this.semestre = semestre;
     }
-    
-    
-    
-
 }

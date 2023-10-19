@@ -1,34 +1,32 @@
-
 public class Asignatura {
-    
-    private int codigoAsignatura;
-    private String nombreAsignatura;
+    private String codigo;
+    private String nombre;
     private int semestre;
     private int creditos;
     private String horario;
 
-    public Asignatura(int codigoAsignatura, String nombreAsignatura, int semestre, int creditos, String horario) {
-        this.codigoAsignatura = codigoAsignatura;
-        this.nombreAsignatura = nombreAsignatura;
+    public Asignatura(String codigo, String nombre, int semestre, int creditos, String horario) {
+        this.codigo = codigo;
+        this.nombre = nombre;
         this.semestre = semestre;
         this.creditos = creditos;
         this.horario = horario;
     }
 
-    public int getCodigoAsignatura() {
-        return codigoAsignatura;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCodigoAsignatura(int codigoAsignatura) {
-        this.codigoAsignatura = codigoAsignatura;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public String getNombreAsignatura() {
-        return nombreAsignatura;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreAsignatura(String nombreAsignatura) {
-        this.nombreAsignatura = nombreAsignatura;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public int getSemestre() {
@@ -54,5 +52,4 @@ public class Asignatura {
     public void setHorario(String horario) {
         this.horario = horario;
     }
-    
 }
