@@ -1,0 +1,2 @@
+url de la base de datos: https://www.datos.gov.co/Mapas-Nacionales/Departamentos-y-municipios-de-Colombia/xdk5-pm3f
+La base de datos contiene un registro de cada uno de los municipios de colombia junto con su respectiva region y codigos del dane, contiene tanto los municipios como los departamentos, de tal manera que se puede realizar las tablas de municpios por departamento o region.
