@@ -1,3 +1,12 @@
+
+import java.awt.BorderLayout;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -96,15 +105,16 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(161, 161, 161))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -123,7 +133,47 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        //Barras
+        DefaultCategoryDataset datos = new DefaultCategoryDataset();
+
+        datos.setValue(72, "Llano", "Municipios");
+        datos.setValue(179, "Pacifico", "Municipios");
+        datos.setValue(178, "Eje cafetero - Antioquia", "Municipios");
+        datos.setValue(367, "Centro Oriente", "Municipios");
+        datos.setValue(130, "Centro Sur", "Municipios");
+        datos.setValue(197, "Caribe", "Municipios");
+        //1123 municipios
+        
+        JFreeChart barras = ChartFactory.createBarChart("Municipios por Region", "Region", "Municipios", datos, PlotOrientation.VERTICAL, true, true, false);
+        ChartPanel panel1 = new ChartPanel(barras);
+        panel1.setMouseWheelEnabled(true);
+        //jPanel1.setPreferredSize(new Dimension(250, 150));
+
+        jPanel1.setLayout(new BorderLayout());
+        jPanel1.add(panel1, BorderLayout.NORTH);
+        pack();
+        repaint();
+        
+        //Pastel
+        float n = 1123;
+        DefaultPieDataset datos1 = new DefaultPieDataset();//Crear Objeto de la clase DefaultPieDataset y despues asignar valores:
+        datos1.setValue("Llano ("+(72/n)*100+"%)", 72);
+        datos1.setValue("Pacifico ("+(179/n)*100+"%)", 179);
+        datos1.setValue("Eje cafetero - Antioquia ("+(178/n)*100+"%)", 178);
+        datos1.setValue("Centro Oriente ("+(367/n)*100+"%)", 367);
+        datos1.setValue("Centro Sur ("+(130/n)*100+"%)", 130);
+        datos1.setValue("Caribe ("+(197/n)*100+"%)", 197);
+        
+        JFreeChart grafico_cir = ChartFactory.createPieChart("Municipios por Region", datos1, true, true, false);
+
+        ChartPanel panel_temporal = new ChartPanel(grafico_cir);//Recibe objeto de la clase JFreeChart
+        panel_temporal.setMouseWheelEnabled(true);
+
+        jPanel2.setLayout(new BorderLayout());
+        jPanel2.add(panel_temporal, BorderLayout.NORTH);
+
+        pack();
+        repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
