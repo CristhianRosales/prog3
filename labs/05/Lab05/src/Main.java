@@ -1,7 +1,10 @@
-
+import javax.swing.*;
 import java.awt.BorderLayout;
+import java.io.File;
+import java.io.IOException;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -18,9 +21,10 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class Main extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Main
-     */
+    boolean generado = false;
+    JFreeChart barrasexp;
+    JFreeChart pastelexp;
+    
     public Main() {
         initComponents();
     }
@@ -122,14 +126,36 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        if (generado){
+            String currentDirectory = System.getProperty("user.dir");
+            try {
+                ChartUtilities.saveChartAsJPEG(new File("GraficaBarras.jpg"), barrasexp, 500, 300);
+                JFrame generado = new JFrame();
+                JOptionPane.showMessageDialog(generado, "Grafica de barras generada en: "+currentDirectory+" como GraficaBarras.jpg");
+            } catch (IOException e) {
+                JFrame error = new JFrame();
+                JOptionPane.showMessageDialog(error, "Error al crear el archivo.");
+            }
+            try {
+                ChartUtilities.saveChartAsJPEG(new File("GraficaPastel.jpg"), pastelexp, 500, 300);
+                JFrame generado = new JFrame();
+                JOptionPane.showMessageDialog(generado, "Grafica de pastel generada en: "+currentDirectory+" como GraficaPastel.jpg");
+            } catch (IOException e) {
+                JFrame error = new JFrame();
+                JOptionPane.showMessageDialog(error, "Error al crear el archivo.");
+            }
+        }
+        else {
+            JFrame error = new JFrame();
+            JOptionPane.showMessageDialog(error, "¡Genere primero las graficas!");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -164,9 +190,9 @@ public class Main extends javax.swing.JFrame {
         datos1.setValue("Centro Sur ("+(130/n)*100+"%)", 130);
         datos1.setValue("Caribe ("+(197/n)*100+"%)", 197);
         
-        JFreeChart grafico_cir = ChartFactory.createPieChart("Municipios por Region", datos1, true, true, false);
+        JFreeChart pastel = ChartFactory.createPieChart("Municipios por Region", datos1, true, true, false);
 
-        ChartPanel panel_temporal = new ChartPanel(grafico_cir);//Recibe objeto de la clase JFreeChart
+        ChartPanel panel_temporal = new ChartPanel(pastel);//Recibe objeto de la clase JFreeChart
         panel_temporal.setMouseWheelEnabled(true);
 
         jPanel2.setLayout(new BorderLayout());
@@ -174,6 +200,10 @@ public class Main extends javax.swing.JFrame {
 
         pack();
         repaint();
+        
+        generado=true;
+        barrasexp=barras;
+        pastelexp=pastel;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
