@@ -34,18 +34,18 @@ public class LecturaDatos {
             Municipio temp = municipios.get(i);
             
             switch (temp.region){
-                case "Eje Cafetero - Antioquia":   mpr[0]+=1;
-                                break;
-                case "Centro Oriente":    mpr[1]+=1;
-                                    break;
-                case "Caribe":    mpr[2]+=1;
+                case "Eje Cafetero - Antioquia":    mpr[0]+=1;
                                                     break;
-                case "Pacifico":  mpr[3]+=1;
+                case "Centro Oriente":  mpr[1]+=1;
                                         break;
-                case "Llano":  mpr[4]+=1;
-                                    break;
-                case "Centro Sur":  mpr[5]+=1;
+                case "Caribe":  mpr[2]+=1;
                                 break;
+                case "Pacifico":    mpr[3]+=1;
+                                    break;
+                case "Llano":   mpr[4]+=1;
+                                break;
+                case "Centro Sur":  mpr[5]+=1;
+                                    break;
                 default:    System.out.println("Error: La region "+temp.region+" no esta dentro de las posibles.");
                             break;
             }
@@ -70,7 +70,6 @@ public class LecturaDatos {
             }
             if (!regionregistrada) {
                 regiones.add(temp.region);
-                System.out.println(temp.region);
             }
             i++;
         }
