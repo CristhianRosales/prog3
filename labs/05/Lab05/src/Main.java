@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
@@ -17,6 +19,7 @@ public class Main extends javax.swing.JFrame {
     JFreeChart pastelexp;
     
     LecturaDatos lectura = new LecturaDatos();
+    
     
     
     public Main() {
@@ -150,16 +153,23 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int[] mpr = lectura.municipiosPorRegion();
-        
+        List<String> regiones = new ArrayList<>();
+        regiones = lectura.regiones(); 
+        int i=0, j=0;
         //Barras
         DefaultCategoryDataset datos = new DefaultCategoryDataset();
-
-        datos.setValue(mpr[0], "Llano", "Regiones");
+        
+        while(i<regiones.size()){
+            datos.setValue(mpr[i], regiones.get(i), "Regiones");
+            i++;
+        }
+        
+        /*datos.setValue(mpr[0], "Llano", "Regiones");
         datos.setValue(mpr[1], "Pacifico", "Regiones");
         datos.setValue(mpr[2], "Eje cafetero - Antioquia", "Regiones");
         datos.setValue(mpr[3], "Centro Oriente", "Regiones");
         datos.setValue(mpr[4], "Centro Sur", "Regiones");
-        datos.setValue(mpr[5], "Caribe", "Regiones");
+        datos.setValue(mpr[5], "Caribe", "Regiones");*/
         //1123 municipios
         
         JFreeChart barras = ChartFactory.createBarChart("Municipios por Region", "Region", "Municipios", datos, PlotOrientation.VERTICAL, true, true, false);
@@ -172,14 +182,19 @@ public class Main extends javax.swing.JFrame {
         repaint();
         
         //Pastel
-        float n = 1123;
+        float n = mpr[0]+mpr[1]+mpr[2]+mpr[3]+mpr[4]+mpr[5];
+        
         DefaultPieDataset datos1 = new DefaultPieDataset();
-        datos1.setValue("Llano ("+(mpr[0]/n)*100+"%)", mpr[0]);
+        while(j<regiones.size()){
+            datos1.setValue(regiones.get(j)+" ("+(mpr[j]/n)*100+"%)", mpr[j]);
+            j++;
+        }
+        /*datos1.setValue("Llano ("+(mpr[0]/n)*100+"%)", mpr[0]);
         datos1.setValue("Pacifico ("+(mpr[1]/n)*100+"%)", mpr[1]);
         datos1.setValue("Eje cafetero - Antioquia ("+(mpr[2]/n)*100+"%)", mpr[2]);
         datos1.setValue("Centro Oriente ("+(mpr[3]/n)*100+"%)", mpr[3]);
         datos1.setValue("Centro Sur ("+(mpr[4]/n)*100+"%)", mpr[4]);
-        datos1.setValue("Caribe ("+(mpr[5]/n)*100+"%)", mpr[5]);
+        datos1.setValue("Caribe ("+(mpr[5]/n)*100+"%)", mpr[5]);*/
         
         JFreeChart pastel = ChartFactory.createPieChart("Municipios por Region", datos1, true, true, false);
 

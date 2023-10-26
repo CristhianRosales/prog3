@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class LecturaDatos {
     private List<Municipio> municipios;
+    List<String> regiones = new ArrayList<>();
 
     public LecturaDatos() {
         municipios = new ArrayList<>();
@@ -27,22 +28,23 @@ public class LecturaDatos {
     }
     
     public int[] municipiosPorRegion(){
-        int mpr[] = new int [6];
+        int mpr[] = new int [regiones.size()];
         int i=0;
         while (i<municipios.size()){
             Municipio temp = municipios.get(i);
+            
             switch (temp.region){
-                case "Llano":   mpr[0]+=1;
+                case "Eje Cafetero - Antioquia":   mpr[0]+=1;
                                 break;
-                case "Pacifico":    mpr[1]+=1;
+                case "Centro Oriente":    mpr[1]+=1;
                                     break;
-                case "Eje Cafetero - Antioquia":    mpr[2]+=1;
+                case "Caribe":    mpr[2]+=1;
                                                     break;
-                case "Centro Oriente":  mpr[3]+=1;
+                case "Pacifico":  mpr[3]+=1;
                                         break;
-                case "Centro Sur":  mpr[4]+=1;
+                case "Llano":  mpr[4]+=1;
                                     break;
-                case "Caribe":  mpr[5]+=1;
+                case "Centro Sur":  mpr[5]+=1;
                                 break;
                 default:    System.out.println("Error: La region "+temp.region+" no esta dentro de las posibles.");
                             break;
@@ -50,6 +52,30 @@ public class LecturaDatos {
             i++;
         }
         return mpr;
+    }
+    
+    public List<String> regiones(){
+        
+        int i=0;
+        
+        while (i<municipios.size()){
+            Municipio temp = municipios.get(i);
+            boolean regionregistrada = false;
+            int j=0;
+            while (j < regiones.size()) {
+                if(temp.region.equals(regiones.get(j))){
+                    regionregistrada = true; 
+                }
+                j++;
+            }
+            if (!regionregistrada) {
+                regiones.add(temp.region);
+                System.out.println(temp.region);
+            }
+            i++;
+        }
+        
+        return regiones;
     }
     
 }
