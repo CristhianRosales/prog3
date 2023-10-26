@@ -18,6 +18,7 @@ public class Main extends javax.swing.JFrame {
     
     LecturaDatos lectura = new LecturaDatos();
     
+    
     public Main() {
         initComponents();
     }
@@ -144,18 +145,21 @@ public class Main extends javax.swing.JFrame {
             JFrame error = new JFrame();
             JOptionPane.showMessageDialog(error, "¡Genere primero las graficas!");
         }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int[] mpr = lectura.municipiosPorRegion();
+        
         //Barras
         DefaultCategoryDataset datos = new DefaultCategoryDataset();
 
-        datos.setValue(72, "Llano", "Municipios");
-        datos.setValue(179, "Pacifico", "Municipios");
-        datos.setValue(178, "Eje cafetero - Antioquia", "Municipios");
-        datos.setValue(367, "Centro Oriente", "Municipios");
-        datos.setValue(130, "Centro Sur", "Municipios");
-        datos.setValue(197, "Caribe", "Municipios");
+        datos.setValue(mpr[0], "Llano", "Regiones");
+        datos.setValue(mpr[1], "Pacifico", "Regiones");
+        datos.setValue(mpr[2], "Eje cafetero - Antioquia", "Regiones");
+        datos.setValue(mpr[3], "Centro Oriente", "Regiones");
+        datos.setValue(mpr[4], "Centro Sur", "Regiones");
+        datos.setValue(mpr[5], "Caribe", "Regiones");
         //1123 municipios
         
         JFreeChart barras = ChartFactory.createBarChart("Municipios por Region", "Region", "Municipios", datos, PlotOrientation.VERTICAL, true, true, false);
@@ -170,12 +174,12 @@ public class Main extends javax.swing.JFrame {
         //Pastel
         float n = 1123;
         DefaultPieDataset datos1 = new DefaultPieDataset();
-        datos1.setValue("Llano ("+(72/n)*100+"%)", 72);
-        datos1.setValue("Pacifico ("+(179/n)*100+"%)", 179);
-        datos1.setValue("Eje cafetero - Antioquia ("+(178/n)*100+"%)", 178);
-        datos1.setValue("Centro Oriente ("+(367/n)*100+"%)", 367);
-        datos1.setValue("Centro Sur ("+(130/n)*100+"%)", 130);
-        datos1.setValue("Caribe ("+(197/n)*100+"%)", 197);
+        datos1.setValue("Llano ("+(mpr[0]/n)*100+"%)", mpr[0]);
+        datos1.setValue("Pacifico ("+(mpr[1]/n)*100+"%)", mpr[1]);
+        datos1.setValue("Eje cafetero - Antioquia ("+(mpr[2]/n)*100+"%)", mpr[2]);
+        datos1.setValue("Centro Oriente ("+(mpr[3]/n)*100+"%)", mpr[3]);
+        datos1.setValue("Centro Sur ("+(mpr[4]/n)*100+"%)", mpr[4]);
+        datos1.setValue("Caribe ("+(mpr[5]/n)*100+"%)", mpr[5]);
         
         JFreeChart pastel = ChartFactory.createPieChart("Municipios por Region", datos1, true, true, false);
 
@@ -194,6 +198,30 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);
