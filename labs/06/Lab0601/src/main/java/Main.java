@@ -23,8 +23,23 @@ public class Main extends javax.swing.JFrame {
     ImageIcon imageIcon8 = new ImageIcon(new ImageIcon("carro8.png").getImage().getScaledInstance(173, 62, Image.SCALE_DEFAULT));
     ImageIcon imageIcon9 = new ImageIcon(new ImageIcon("carro9.png").getImage().getScaledInstance(173, 62, Image.SCALE_DEFAULT));
     
+    
     public Main() {
         initComponents();
+        avanzarCarro1();
+    }
+    
+    public void avanzarCarro1(){
+        int x1 = jLabel1.getLocation().x;
+        int x=0;
+        int y = jLabel1.getY();
+        System.out.println(x1);
+        while (x<200){
+            jLabel1.setBounds(x1+x, y, 173, 62);
+            x++;
+            System.out.println(x);
+        }
+        System.out.println(jLabel1.getX());
     }
     
     
@@ -51,6 +66,7 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setIcon(imageIcon1);
+        jLabel1.setText("a");
 
         jLabel2.setIcon(imageIcon2);
 
@@ -75,16 +91,20 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addContainerGap(920, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(584, 920, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,13 +113,13 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
@@ -107,7 +127,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,6 +136,9 @@ public class Main extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -147,10 +170,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
         
-        ImageIcon imageIcon = new ImageIcon("./img/imageName.png"); // load the image to a imageIcon
-        Image image = imageIcon.getImage(); // transform it 
-        Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-        imageIcon.setImage(newimg);  // transform it back
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
