@@ -26,20 +26,15 @@ public class Main extends javax.swing.JFrame {
     
     public Main() {
         initComponents();
-        avanzarCarro1();
     }
     
-    public void avanzarCarro1(){
-        int x1 = jLabel1.getLocation().x;
-        int x=0;
-        int y = jLabel1.getY();
-        System.out.println(x1);
+    public void avanzarCarro1(javax.swing.JLabel jLabel){
+        int x = jLabel.getLocation().x;
+        int y = jLabel.getY();
         while (x<200){
-            jLabel1.setBounds(x1+x, y, 173, 62);
             x++;
-            System.out.println(x);
+            jLabel.setLocation(x, y);
         }
-        System.out.println(jLabel1.getX());
     }
     
     
@@ -62,6 +57,7 @@ public class Main extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,6 +80,13 @@ public class Main extends javax.swing.JFrame {
 
         jLabel9.setIcon(imageIcon9);
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,6 +108,10 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel1))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,11 +134,23 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                avanzarCarro1(jLabel1);
+            }
+        };
+        t.start();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,6 +193,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
