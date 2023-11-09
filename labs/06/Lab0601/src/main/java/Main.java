@@ -216,7 +216,6 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void run() {
                 llamado();
-                System.out.println("llamado");
             }
         };
         Timer timer = new Timer();
@@ -225,7 +224,6 @@ public class Main extends javax.swing.JFrame {
             timer.cancel();
         }
         if(corriendo){
-            System.out.println("reinicia");
             jButton1.setText("Reiniciar");
             timer.cancel();
             reiniciar(jLabel1);
