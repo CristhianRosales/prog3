@@ -1,8 +1,10 @@
 
 import java.awt.Image;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.util.Timer;
 
 public class Main extends javax.swing.JFrame {
 
@@ -17,15 +19,16 @@ public class Main extends javax.swing.JFrame {
     ImageIcon imageIcon9 = new ImageIcon(new ImageIcon("carro9.png").getImage().getScaledInstance(173, 62, Image.SCALE_DEFAULT));
     
     boolean gano=false;
+    boolean corriendo=false;
     
     public Main() {
         initComponents();
     }
     
-    public boolean avanzarCarro1(javax.swing.JLabel jLabel, String color){
+    public void avanzarCarro1(javax.swing.JLabel jLabel, String color){
         int x = jLabel.getLocation().x;
         int y = jLabel.getY();
-        int a = (int) (Math.random() * 20) + 1;
+        int a = (int) (Math.random() * 10) + 1;
         a += x;
         while (x<a){
             if(x<1120){
@@ -34,12 +37,11 @@ public class Main extends javax.swing.JFrame {
             }
             else {
                 JFrame ganador = new JFrame();
-                JOptionPane.showMessageDialog(ganador, "El carro "+color+" ha ganado");
                 gano=true;
+                JOptionPane.showMessageDialog(ganador, "El carro "+color+" ha ganado");
                 break;
             }
         }
-        return gano;
     }
     
     @SuppressWarnings("unchecked")
@@ -58,7 +60,7 @@ public class Main extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1300, 900));
+        setPreferredSize(new java.awt.Dimension(1300, 815));
         setResizable(false);
 
         jLabel1.setIcon(imageIcon1);
@@ -79,7 +81,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel9.setIcon(imageIcon9);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Iniciar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -102,16 +104,16 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
                     .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(51, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton1)
-                .addGap(21, 21, 21))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addComponent(jButton1)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
@@ -129,15 +131,13 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    public void llamado(){
         Thread t1 = new Thread() {
             @Override
             public void run() {
@@ -202,6 +202,40 @@ public class Main extends javax.swing.JFrame {
             t7.start();
             t8.start();
             t9.start();
+        }
+        
+        corriendo =true;
+    }
+    
+    public void reiniciar(javax.swing.JLabel jLabel){
+        int y=jLabel.getY();
+        jLabel.setLocation(51, y);
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jButton1.setText("Reiniciar");
+        System.out.println(jLabel2.getX());
+        TimerTask timertask = new TimerTask() {
+            @Override
+            public void run() {
+                llamado();
+            }
+        };
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(timertask, 0, 30);
+        if(corriendo){
+            jButton1.setText("Iniciar");
+            timer.cancel();
+            reiniciar(jLabel1);
+            reiniciar(jLabel2);
+            reiniciar(jLabel3);
+            reiniciar(jLabel4);
+            reiniciar(jLabel5);
+            reiniciar(jLabel6);
+            reiniciar(jLabel7);
+            reiniciar(jLabel8);
+            reiniciar(jLabel9);
+            corriendo = false;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
