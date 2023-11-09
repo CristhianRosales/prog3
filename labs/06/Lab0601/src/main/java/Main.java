@@ -203,8 +203,6 @@ public class Main extends javax.swing.JFrame {
             t8.start();
             t9.start();
         }
-        
-        corriendo =true;
     }
     
     public void reiniciar(javax.swing.JLabel jLabel){
@@ -213,18 +211,22 @@ public class Main extends javax.swing.JFrame {
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jButton1.setText("Reiniciar");
-        System.out.println(jLabel2.getX());
+        jButton1.setText("Iniciar");
         TimerTask timertask = new TimerTask() {
             @Override
             public void run() {
                 llamado();
+                System.out.println("llamado");
             }
         };
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(timertask, 0, 30);
+        if(gano){
+            timer.cancel();
+        }
         if(corriendo){
-            jButton1.setText("Iniciar");
+            System.out.println("reinicia");
+            jButton1.setText("Reiniciar");
             timer.cancel();
             reiniciar(jLabel1);
             reiniciar(jLabel2);
@@ -236,6 +238,10 @@ public class Main extends javax.swing.JFrame {
             reiniciar(jLabel8);
             reiniciar(jLabel9);
             corriendo = false;
+            gano = false;
+        }
+        else {
+            corriendo=true;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
