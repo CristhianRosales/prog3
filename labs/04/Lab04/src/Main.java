@@ -13,10 +13,18 @@ public class Main extends javax.swing.JFrame {
     ImageIcon amarillo = new ImageIcon(new ImageIcon("src/semaforo/amarillo.png").getImage().getScaledInstance(111, 181, Image.SCALE_DEFAULT));
     ImageIcon verde = new ImageIcon(new ImageIcon("src/semaforo/verde.png").getImage().getScaledInstance(111, 181, Image.SCALE_DEFAULT));
     Timer timer = new Timer();
-    boolean cambiando = false;
     int cambios=3;
     int trojo = 25000;
     
+    ImageIcon img0 = new ImageIcon(new ImageIcon("src/persona/0.png").getImage().getScaledInstance(111, 219, Image.SCALE_DEFAULT));
+    ImageIcon img1 = new ImageIcon(new ImageIcon("src/persona/1.png").getImage().getScaledInstance(111, 219, Image.SCALE_DEFAULT));
+    ImageIcon img2 = new ImageIcon(new ImageIcon("src/persona/2.png").getImage().getScaledInstance(111, 219, Image.SCALE_DEFAULT));
+    ImageIcon img3 = new ImageIcon(new ImageIcon("src/persona/3.png").getImage().getScaledInstance(111, 219, Image.SCALE_DEFAULT));
+    ImageIcon img4 = new ImageIcon(new ImageIcon("src/persona/4.png").getImage().getScaledInstance(111, 219, Image.SCALE_DEFAULT));
+    ImageIcon img5 = new ImageIcon(new ImageIcon("src/persona/5.png").getImage().getScaledInstance(111, 219, Image.SCALE_DEFAULT));
+    ImageIcon img6 = new ImageIcon(new ImageIcon("src/persona/6.png").getImage().getScaledInstance(111, 219, Image.SCALE_DEFAULT));
+    ImageIcon img7 = new ImageIcon(new ImageIcon("src/persona/7.png").getImage().getScaledInstance(111, 219, Image.SCALE_DEFAULT));
+    ImageIcon[] imgs = {img0, img1, img2, img3, img4, img5, img6, img7};
     
     public Main() {
         initComponents();
@@ -58,7 +66,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Documents\\NetBeansProjects\\Lab04\\src\\persona\\0.png")); // NOI18N
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Iniciar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -96,25 +104,24 @@ public class Main extends javax.swing.JFrame {
                                 .addGap(149, 149, 149))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(82, 82, 82))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(31, 31, 31))))))
+                                .addGap(82, 82, 82))))))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jButton2)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
+                        .addComponent(jButton2)
+                        .addGap(32, 32, 32)
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
-                        .addComponent(jButton2)))
+                        .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -142,19 +149,50 @@ public class Main extends javax.swing.JFrame {
         }
     }
     
+    class CambioImg extends TimerTask {
+        ImageIcon img;
+        CambioImg(ImageIcon img){
+            this.img=img;
+            
+        }
+        public void run() {
+            jLabel5.setIcon(img);
+        }
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        cambiando=true;
-        
+        trojo=30000;
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Thread t2 = new Thread() {
             @Override
             public void run() {
-                int temp=0;
-                while(true){
-                    
+                int temp = 0;
+                while (true) {
+
                     if ((cambios % 3) == 0 & cambios != temp) {
-                        timer.schedule(new Cambio(amarillo), 25000);
-                        timer.schedule(new Cambio(verde), 28000);
-                        timer.schedule(new Cambio(rojo), 53000);
+                        int j=0;
+                        int d=125;
+                        int m=trojo/125;
+                        int[] delays = {trojo, trojo+3000, trojo+28000};
+                        for(int i=0;i<m;i++){
+                            timer.schedule(new CambioImg(imgs[j]), d);
+                            j++;
+                            d+=125;
+                            if(j>7){
+                                j=0;
+                            }
+                            if(d>trojo){
+                                d=125;
+                            }
+                        }
+                        timer.schedule(new Cambio(amarillo), delays[0]);
+                        if(trojo==30000){
+                            trojo=25000;
+                        }
+                        timer.schedule(new Cambio(verde), delays[1]);
+                        timer.schedule(new Cambio(rojo), delays[2]);
                         temp = cambios;
                     }
                     System.out.println(temp);
@@ -162,11 +200,7 @@ public class Main extends javax.swing.JFrame {
             }
         };
         t2.start();
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.out.println(cambios);
+        jButton2.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
