@@ -1,11 +1,7 @@
 import java.awt.Image;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 
 public class Main extends javax.swing.JFrame {
@@ -51,6 +47,9 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel1.setText("Trafico");
 
+        jSlider2.setPaintLabels(true);
+        jSlider2.setPaintTicks(true);
+
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel2.setText("Tiempo añadido: 0 segundos");
 
@@ -89,22 +88,19 @@ public class Main extends javax.swing.JFrame {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(74, 74, 74)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(29, 29, 29)
-                                        .addComponent(jButton1)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(29, 29, 29)
+                                            .addComponent(jButton1))))))
                         .addContainerGap(80, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(149, 149, 149))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(82, 82, 82))))))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(149, 149, 149))))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton2)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -137,6 +133,15 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public float[] trafico (){
+        float trafico = jSlider2.getValue();
+        float mr, mv;
+        mr = ((100 - trafico) * 2) / 100;
+        mv = ((trafico) * 2) / 100;
+        float[] m = {mr, mv};
+        return m;
+    }
+    
     class Cambio extends TimerTask {
         ImageIcon color;
         Cambio(ImageIcon color){
@@ -162,20 +167,27 @@ public class Main extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         trojo=30000;
+        jLabel2.setText("Tiempo añadido: 5 segundos");
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Thread t2 = new Thread() {
+        Thread t = new Thread() {
             @Override
             public void run() {
                 int temp = 0;
+                float[] mc=new float[2];
                 while (true) {
-
+                    mc=trafico();
                     if ((cambios % 3) == 0 & cambios != temp) {
                         int j=0;
                         int d=125;
-                        int m=trojo/125;
-                        int[] delays = {trojo, trojo+3000, trojo+28000};
+                        int[] delaystemp = {trojo, 3000, 25000};
+                        delaystemp[0]=Math.round(delaystemp[0]*mc[0]);
+                        delaystemp[2]=Math.round(delaystemp[2]*mc[1]);
+                        int[] delays = {delaystemp[0], delaystemp[0]+3000, delaystemp[0]+3000+delaystemp[2]};
+                        int m=delays[0]/125;
                         for(int i=0;i<m;i++){
                             timer.schedule(new CambioImg(imgs[j]), d);
                             j++;
@@ -183,13 +195,14 @@ public class Main extends javax.swing.JFrame {
                             if(j>7){
                                 j=0;
                             }
-                            if(d>trojo){
+                            if(d>delays[0]){
                                 d=125;
                             }
                         }
                         timer.schedule(new Cambio(amarillo), delays[0]);
                         if(trojo==30000){
                             trojo=25000;
+                            jLabel2.setText("Tiempo añadido: 0 segundos");
                         }
                         timer.schedule(new Cambio(verde), delays[1]);
                         timer.schedule(new Cambio(rojo), delays[2]);
@@ -199,7 +212,7 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         };
-        t2.start();
+        t.start();
         jButton2.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
